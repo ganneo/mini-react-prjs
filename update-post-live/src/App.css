@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App form #title {
+  margin-top: 3rem;
+  padding: 1rem;
+  width: 50%;
+}
+
+.App form #post {
+  display: block;
+  width: 50%;
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.post {
+  background-color: gray;
+  width: 50%;
+  margin: auto;
+  margin-top: 3rem;
+  padding: 1rem;
+  color: white;
+  word-wrap: break-word;
+  box-shadow: 10px 5px 5px rgb(63, 63, 63);
+}
+
+.post h1 {
+  text-align: center;
+}
+
+.post p {
+  text-align: left;
+}
