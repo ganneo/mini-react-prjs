@@ -1,16 +1,20 @@
-import React from 'react'
+import CharBox from "./CharBox";
+import "./Box.css";
 
 export interface BoxProps {
-    letter: string
-    onClickHandler: (e: React.MouseEvent) => void
-    id: number
+  charBox: CharBox;
+  onClickHandler: (id: number) => void;
 }
 
 const Box: React.FC<BoxProps> = (props) => {
-    return <span
-    className="box"
-    onClick={props.onClickHandler}
-    id={props.id.toString()}>{props.letter}</span>
-}
+  return (
+    <span
+      className="Box"
+      onClick={() => props.onClickHandler(props.charBox.id)}
+    >
+      {props.charBox.c}
+    </span>
+  );
+};
 
-export default Box
+export default Box;

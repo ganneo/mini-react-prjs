@@ -1,27 +1,23 @@
-import React from 'react'
-import Box from './Box'
-let boxId = 0
+import React from "react";
+import Box from "./Box";
+import CharBox from "./CharBox";
+import "./BoxContainer.css";
 
 interface BoxContainerProps {
-    text:string,
-    onClickHandler: (e: React.MouseEvent) => void
+  charBoxes: CharBox[];
+  onClickHandler: (id: number) => void;
 }
 
-const BoxContainer: React.FC<BoxContainerProps> = (props) => {
-    const boxElements = props.text
-    .split('')
-    .map(letter => 
-    <Box 
-    letter={letter}
-    key={boxId++}
-    id={boxId}
-    onClickHandler={props.onClickHandler}></Box>)
+const BoxContainer: React.FC<BoxContainerProps> = (props) => (
+  <div className="BoxContainer">
+    {props.charBoxes.map((charBox) => (
+      <Box
+        charBox={charBox}
+        onClickHandler={props.onClickHandler}
+        key={charBox.id}
+      />
+    ))}
+  </div>
+);
 
-    return (
-        <div className="grid-container">
-            {boxElements}
-        </div>
-    )
-}
-
-export default BoxContainer
+export default BoxContainer;

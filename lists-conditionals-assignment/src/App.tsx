@@ -1,40 +1,54 @@
-import React, { useState } from 'react';
-import './App.css';
-import Input from './components/Input';
-import BoxContainer from './components/BoxContainer'
-import './components/Input.css'
+import React, { useState } from "react";
+import "./App.css";
+import Input from "./components/Input";
+import BoxContainer from "./components/BoxContainer";
+import "./components/Input.css";
+import CharBox from "./components/CharBox";
 
 function App() {
-  const [inputState, updateInput] = useState("")
-  const onChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
-    updateInput(e.target.value)
+  let charBoxId = 0;
+  const [charBoxesState, updateCharBoxesInput] = useState<CharBox[]>([]);
+
+  const onChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void = (
+    e
+  ) => {
+    updateCharBoxesInput(
+      e.target.value.split("").map((c) => new CharBox(c, charBoxId++))
+    );
+  };
+
+  const onClickHandler: (charBoxId: number) => void = (charBoxId) => {
+    const charBoxes = charBoxesState.filter(
+      (charBox) => charBox.id !== charBoxId
+    );
+    updateCharBoxesInput(charBoxes);
+  };
+
+  let warning: JSX.Element | null = null;
+
+  if (charBoxesState.length <= 5) {
+    warning = <div>Make input longer</div>;
   }
-  const onClickHandler: (e: React.MouseEvent) => void = (e) => {
-    const boxEle = e.target as HTMLSpanElement
-    let newInputState = ''
-    document.querySelectorAll('.box').forEach(box => {
-      if (box.id !== boxEle.id) {
-        newInputState = newInputState + box.textContent
-      }
-    })
-    updateInput(newInputState)
-  }
 
+  let boxContainer: JSX.Element | null = null;
 
-  let warningText = <BoxContainer 
-  text={inputState}
-  onClickHandler={onClickHandler}></BoxContainer>
-
-  if (inputState.length < 5) {
-    warningText = <p>Add more text</p>
+  if (charBoxesState.length > 5) {
+    boxContainer = (
+      <BoxContainer
+        charBoxes={charBoxesState}
+        onClickHandler={onClickHandler}
+      ></BoxContainer>
+    );
   }
 
   return (
     <div className="App">
       <Input
-      value={inputState}
-      onChangeInput={onChangeInput}></Input>
-      {warningText}
+        value={charBoxesState.map((charBox) => charBox.c).join("")}
+        onChangeInput={onChangeInput}
+      ></Input>
+      {warning}
+      {boxContainer}
     </div>
   );
 }
